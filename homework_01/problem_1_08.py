@@ -80,9 +80,11 @@ def main(numSamples: int = 1000):
 
     diff_pure = dirtyDerivative(spacing=wavelength_increment)
     diff_doped = dirtyDerivative(spacing=wavelength_increment)
+    diff_second_pure = dirtyDerivative(spacing=wavelength_increment)
 
     SiO2_indices_diff = []
     SiO2_GeO2_indices_diff = []
+    SiO2_indices_diff_second = []
 
     SiO2_group_indices = []
     SiO2_GeO2_group_indices = []
@@ -90,13 +92,21 @@ def main(numSamples: int = 1000):
     SiO2_group_velocities = []
     SiO2_GeO2_group_velocities = []
 
+    desiredSecondDiff = 0.0
+
     #creates the derivatives of each sample for both materials
     for pure_index, doped_index, wavelength in zip(SiO2_indices, SiO2_GeO2_indices, wavelengths):
         n_SiO2_diff_temp = diff_pure.update(z=pure_index)
+        n_SiO2_diff_second_temp = diff_second_pure.update(n_SiO2_diff_temp)
         n_SiO2_GeO2_diff_temp = diff_doped.update(z=doped_index)
+
+        if wavelength >= 1.5e-6:
+
+            testPoint = 0
 
         SiO2_indices_diff.append(n_SiO2_diff_temp)
         SiO2_GeO2_indices_diff.append(n_SiO2_GeO2_diff_temp)
+        SiO2_indices_diff_second.append(n_SiO2_diff_second_temp)
 
         SiO2_group_index = pure_index - wavelength*n_SiO2_diff_temp
         SiO2_GeO2_group_index = doped_index - wavelength*n_SiO2_GeO2_diff_temp
