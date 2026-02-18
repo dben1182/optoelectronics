@@ -1,41 +1,35 @@
 import numpy as np
-import scipy.constants as sp_c
+import scipy.constants as scp
 import matplotlib.pyplot as plt
 
-#plots I vs V for polycrystalline Si solar cell
-eta = 2.0
-I_0 = 3e-4
-I_ph = 5e-3
-T = 300
 
-#creates the array for values of R_p
+#creates a linspace for the 
+eta = 2.0
+I0 = 3e-7
+Iph = 5e-3
+T=300
+
 Rp_list = [np.inf, 1000, 100]
 
-
-#creates a V linspace
-V_array = np.linspace(0.0, 0.5, num=1000)
+#creates a list of test voltages for the input
+V_array = np.linspace(0.0, 0.7, 500)
 V_list = V_array.tolist()
 
-I_lists = []
+I_total_list = []
+plt.figure(0)
 
 for Rp in Rp_list:
 
-    I_temp_list = []
+    I_list_current = []
+    for V_test in V_list:
+        I_diode = I0*(np.exp((scp.elementary_charge*V_test)/(eta*scp.Boltzmann*T)) - 1)
+        I_Rp = V_test/Rp
+        I_temp = -Iph + I_diode + I_Rp
+        I_list_current.append(I_temp)
 
-    for V in V_list:
-
-        #gets the total current into the system I
-        I_total = -I_ph + I_0*np.exp((sp_c.elementary_charge*V)/(eta*sp_c.Boltzmann*T)) - I_0 + V/Rp
-        I_temp_list.append(I_total)
-
-    I_lists.append(I_temp_list)
+    plt.plot(V_list, I_list_current, label=f'Rp: {Rp}')
 
 
-plt.figure(0)
-for I_tempList, Rp_value in zip(I_lists, Rp_list):
-    plt.plot(V_list, I_tempList, label=f"Rp = {Rp_value}")
-plt.xlabel('Voltage')
-plt.ylabel('Current')
 plt.legend()
 plt.show()
 
