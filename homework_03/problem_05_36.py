@@ -1,14 +1,13 @@
 import numpy as np
 
-#creates the Resistances 
-Rs_list = [0, 40, 90]
-Iph = 9e-3
-I0 = 30e-6
+
+I0 = 25e-9
+eta = 1.5
 Rp = np.inf
+Iph = 10e-3
 
+Rs_list = [0, 30, 100]
 
-V_array = np.linspace(0.0, 0.5, num=1000)
 
 for Rs in Rs_list:
-
 
