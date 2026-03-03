@@ -20,17 +20,15 @@ Isc_max = 400e-3
 Intensity_max = 1.0
 T_C_max = 27
 T_max = T_C_max + K_conversion
-Fill_factor = 0.73
+Fill_factor_max = 0.73
+eta = 1.0
 
-
-
+#gets the K
+K = -Isc_max / Intensity_max
 
 
 #gets I0 from the original tests
-I0 = Isc_max /(np.exp(scp.elementary_charge*Voc_max/(1.0*scp.Boltzmann*T_max)) - 1.0)
-
-
-
+I0 = Isc_max /(np.exp(scp.elementary_charge*Voc_max/(eta*scp.Boltzmann*T_max)) - 1.0)
 
 phi_deg = 63
 phi = np.radians(phi_deg)
@@ -44,6 +42,13 @@ Intensity_eskimo = getIntensity(alpha=alpha)
 
 #gets the short circuit current
 Isc_eskimo = (Intensity_eskimo/Intensity_max)*Isc_max
+
+#calculates the Open circuit voltage for eskimo
+Voc_eskimo = Voc_max + ((eta*scp.Boltzmann*T_C_eskimo)/(scp.elementary_charge))*np.log(Isc_eskimo/Isc_max)
+
+
+#creates a linspace for R load
+R_load = np.linspace(0.0, 100e3, 1000)
 
 
 
