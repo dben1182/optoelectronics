@@ -1,4 +1,5 @@
-import numpy as np
+#%%
+# import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -15,4 +16,7 @@ tau_e = (5e-7)/(1 + (2e-17)*Nd)
 
 
 
+
 testPoint = 0
+
+# %%

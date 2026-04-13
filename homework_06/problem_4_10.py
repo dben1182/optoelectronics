@@ -40,7 +40,7 @@ delta_lamb_m = (lamb**2)/(2*length)
 
 delta_nu_m = scp.c/(2*length)
 
-intList = list(range(-5, 5))
+intList = list(range(-6, 5))
 
 modeLambList = []
 modeNumList = []
@@ -67,6 +67,33 @@ TempStart_C = 20
 TempStart = TempStart_C + 273.15
 TempEnd_C = 130
 TempEnd = TempEnd_C + 273.15
+
+delta_Temp = TempEnd - TempStart
+
+#seletcs the mode number
+m = 1264222
+lamb_m = 2*1.0*length/m
+
+new_lamb_list = []
+
+for lamb_m in modeLambList:
+    del_lamb_m = lamb_m * alpha * delta_Temp
+    new_lamb_list.append(del_lamb_m)
+
+
+oldDeltaList = []
+
+for i in range(len(modeLambList)-1):
+
+    tempDelta = modeLambList[i+1] - modeLambList[i]
+    oldDeltaList.append(tempDelta)
+
+newDeltaList = []
+
+for i in range(len(new_lamb_list) - 1):
+
+    tempDelta = new_lamb_list[i+1] - new_lamb_list[i]
+    newDeltaList.append(tempDelta)
 
 
 testPoint = 0
