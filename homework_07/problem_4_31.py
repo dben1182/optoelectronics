@@ -36,7 +36,10 @@ T_0 = (Temperature - Temperature_2)/(np.log(I_th) - np.log(I_th_2))
 
 A = np.exp(np.log(I_th) - Temperature/T_0)
 
-I_th_3 = A*np.exp(0/T_0)
+
+T_in = 0+273.15
+
+I_th_3 = A*np.exp(T_in/T_0)
 
 
 testPoint = 0

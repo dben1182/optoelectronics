@@ -15,8 +15,12 @@ tau_nr = 50e-9
 alpha_t = 6000
 #refractive index
 n = 3.6
+
+L = 250e-6
 #gets the photon cavity lifetime
-tau_ph = n/(scp.c*alpha_t)
+#tau_ph = n/(scp.c*alpha_t)
+
+tau_ph = (2*L*n/scp.c)/(1 - np.exp(-2*alpha_t*L))
 
 #gets tau, the effective carrier recombination time
 tau = 1/(1/tau_r + 1/tau_nr)
